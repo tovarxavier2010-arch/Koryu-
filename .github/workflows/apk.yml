@@ -5,7 +5,7 @@ permissions:
   contents: write
 jobs:
   apk:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - run: unzip -q koryu-android.zip -d app
@@ -16,7 +16,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-      - uses: android-actions/setup-android@v3
+      - run: yes | sdkmanager --licenses > /dev/null || true
       - run: npm ci --ignore-scripts
         working-directory: app
       - run: npm run android:sync
